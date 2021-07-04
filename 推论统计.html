@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 3 章 推论统计 | 医学统计学与R语言</title>
+  <meta name="description" content="第 3 章 推论统计 | 医学统计学与R语言" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 3 章 推论统计 | 医学统计学与R语言" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 3 章 推论统计 | 医学统计学与R语言" />
+  
+  
+  
+
+<meta name="author" content="刘向" />
+
+
+<meta name="date" content="2021-07-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="描述.html"/>
+<link rel="next" href="methods.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">中文书示例</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 简介</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#软件准备"><i class="fa fa-check"></i><b>1.1</b> 软件准备</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#致谢"><i class="fa fa-check"></i><b>1.2</b> 致谢</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#声明"><i class="fa fa-check"></i><b>1.3</b> 声明</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="描述.html"><a href="描述.html"><i class="fa fa-check"></i><b>2</b> 计量资料的统计描述</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="描述.html"><a href="描述.html#数据录入"><i class="fa fa-check"></i><b>2.1</b> 数据录入</a></li>
+<li class="chapter" data-level="2.2" data-path="描述.html"><a href="描述.html#计算极差"><i class="fa fa-check"></i><b>2.2</b> 计算极差</a></li>
+<li class="chapter" data-level="2.3" data-path="描述.html"><a href="描述.html#计算标准差及四分位数间距"><i class="fa fa-check"></i><b>2.3</b> 计算标准差及四分位数间距</a></li>
+<li class="chapter" data-level="2.4" data-path="描述.html"><a href="描述.html#计算频数分布"><i class="fa fa-check"></i><b>2.4</b> 计算频数分布</a></li>
+<li class="chapter" data-level="2.5" data-path="描述.html"><a href="描述.html#描述性统计的度量"><i class="fa fa-check"></i><b>2.5</b> 描述性统计的度量</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="描述.html"><a href="描述.html#算术平均值"><i class="fa fa-check"></i><b>2.5.1</b> 算术平均值</a></li>
+<li class="chapter" data-level="2.5.2" data-path="描述.html"><a href="描述.html#几何平均值"><i class="fa fa-check"></i><b>2.5.2</b> 几何平均值</a></li>
+<li class="chapter" data-level="2.5.3" data-path="描述.html"><a href="描述.html#变异系数"><i class="fa fa-check"></i><b>2.5.3</b> 变异系数</a></li>
+<li class="chapter" data-level="2.5.4" data-path="描述.html"><a href="描述.html#众数及排序"><i class="fa fa-check"></i><b>2.5.4</b> 众数及排序</a></li>
+<li class="chapter" data-level="2.5.5" data-path="描述.html"><a href="描述.html#其他描述性统计"><i class="fa fa-check"></i><b>2.5.5</b> 其他描述性统计</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="描述.html"><a href="描述.html#正态分布和标准正态分布"><i class="fa fa-check"></i><b>2.6</b> 正态分布和标准正态分布</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="描述.html"><a href="描述.html#概率密度函数dnorm"><i class="fa fa-check"></i><b>2.6.1</b> 概率密度函数dnorm()</a></li>
+<li class="chapter" data-level="2.6.2" data-path="描述.html"><a href="描述.html#概率累积分布函数pnorm"><i class="fa fa-check"></i><b>2.6.2</b> 概率累积分布函数pnorm()</a></li>
+<li class="chapter" data-level="2.6.3" data-path="描述.html"><a href="描述.html#正态分位函数qnorm"><i class="fa fa-check"></i><b>2.6.3</b> 正态分位函数qnorm()</a></li>
+<li class="chapter" data-level="2.6.4" data-path="描述.html"><a href="描述.html#生成正态分布函数rnorm"><i class="fa fa-check"></i><b>2.6.4</b> 生成正态分布函数rnorm()</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="描述.html"><a href="描述.html#正态性检验"><i class="fa fa-check"></i><b>2.7</b> 正态性检验</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="推论统计.html"><a href="推论统计.html"><i class="fa fa-check"></i><b>3</b> 推论统计</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="推论统计.html"><a href="推论统计.html#统计量与标准误"><i class="fa fa-check"></i><b>3.1</b> 统计量与标准误</a></li>
+<li class="chapter" data-level="3.2" data-path="推论统计.html"><a href="推论统计.html#t-分布"><i class="fa fa-check"></i><b>3.2</b> t 分布</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="推论统计.html"><a href="推论统计.html#概率密度函数dt"><i class="fa fa-check"></i><b>3.2.1</b> 概率密度函数dt()</a></li>
+<li class="chapter" data-level="3.2.2" data-path="推论统计.html"><a href="推论统计.html#概率累积分布函数pt"><i class="fa fa-check"></i><b>3.2.2</b> 概率累积分布函数pt()</a></li>
+<li class="chapter" data-level="3.2.3" data-path="推论统计.html"><a href="推论统计.html#求置信区间的qt"><i class="fa fa-check"></i><b>3.2.3</b> 求置信区间的qt()</a></li>
+<li class="chapter" data-level="3.2.4" data-path="推论统计.html"><a href="推论统计.html#指定t分布函数rt"><i class="fa fa-check"></i><b>3.2.4</b> 指定t分布函数rt()</a></li>
+<li class="chapter" data-level="3.2.5" data-path="推论统计.html"><a href="推论统计.html#参数估计"><i class="fa fa-check"></i><b>3.2.5</b> 参数估计</a></li>
+<li class="chapter" data-level="3.2.6" data-path="推论统计.html"><a href="推论统计.html#假设检验"><i class="fa fa-check"></i><b>3.2.6</b> 假设检验</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="推论统计.html"><a href="推论统计.html#t-检验的分类及应用"><i class="fa fa-check"></i><b>3.3</b> t 检验的分类及应用</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="推论统计.html"><a href="推论统计.html#t检验与z检验"><i class="fa fa-check"></i><b>3.3.1</b> t检验与Z检验</a></li>
+<li class="chapter" data-level="3.3.2" data-path="推论统计.html"><a href="推论统计.html#单样本t检验"><i class="fa fa-check"></i><b>3.3.2</b> 单样本t检验</a></li>
+<li class="chapter" data-level="3.3.3" data-path="推论统计.html"><a href="推论统计.html#配对样本t检验"><i class="fa fa-check"></i><b>3.3.3</b> 配对样本t检验</a></li>
+<li class="chapter" data-level="3.3.4" data-path="推论统计.html"><a href="推论统计.html#两种独立样本t检验"><i class="fa fa-check"></i><b>3.3.4</b> 两种独立样本t检验</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">本书由 bookdown 强力驱动</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">医学统计学与R语言</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="推论统计" class="section level1" number="3">
+<h1><span class="header-section-number">第 3 章</span> 推论统计</h1>
+<p>推论统计（或称统计推断，Statistical inference），指统计学中，研究如何根据样本数据去推断总体数量特征的方法。 它是在对样本数据进行描述的基础上，对统计总体的未知数量特征做出以概率形式表述的推断。更概括地说， 是在一段有限的时间内，通过对一个随机过程的观察来进行推断的。统计学中，统计推断与描述统计相对应。</p>
+<p>推论统计(Statistical inferences)是借助抽样调查，从局部推断总体，以对不肯定的事物做出决策的一种统计。 有总体参数估计与假设检验两种。前者以一次性抽样实验为依据，对整个总体的某个数字特征做出估计。后者则是对 某种假设进行检验，根据计算结果推断所做的假设是否可以接受。如平均数、标准差、相关系数、回归系数等特征的 总体估计及差异显著性检验。推断统计的理论基础是概率论，它更多地需要借助抽样理论与方法。
+## 参数估计与假设检验</p>
+<p>参数估计背后的思想是通过对从总体中抽取的样本进行统计显著性检验(如t检验)，为研究人员提供关于总体的统计推断。 最常用的就是t检验，其参数检验是基于W.S.Gosset的t统计量，该统计数据假设变量来自正态总体。t检验统计量中的总体均值是已知的。 这种分布称为t分布，其形状与正态分布类似，即钟形曲线。t检验用于检验那些样本小于30的样本比正态分布要好， 在大样本上做的和正态分布一样好。</p>
+<p>假设检验(Hypothesis test)过去也叫做显著性检验(Significance test)，是利用小概率反证法思想，从问题的对立面(H0
+)出发， 间接判断解决问题(H1
+)是否成立。即在假设H0
+成立的条件下，计算检验统计量(Test static)，然后根据P
+值(P-value)来判断。</p>
+<div id="统计量与标准误" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> 统计量与标准误</h2>
+<p>样本是总体的代表和反映，也是统计推断的依据，为了对总体的分布或数字特征进行各种统计推断，还需要对样本作加工处理， 把样本中应关心的事物和信息集中起来，针对不同的问题构造出样本的不同函数(如均值，方差，极差，标准差，中位数，众数等)，这种样本的函数我们称其为统计量。</p>
+<p>样本统计量的标准差即为标准误(Stand error,SE)，反映了抽样的统计量的离散程度或误差大小。如样本均数的标准差也称为均数标准误 (Stand error of mean, SEM)，反映了样本均数的离散程度。</p>
+</div>
+<div id="t-分布" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> t 分布</h2>
+<div id="概率密度函数dt" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> 概率密度函数dt()</h3>
+<p>R中，t分布的概率密度函数为dt()，它可以给出了指定均值和标准差下每个点的概率分布的高度， 越高就代表着这个点/区间的概率越密集(大)。从下免得概率密度图见，当df=20时，t分布曲线已经非常接近标准正态曲线了。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="推论统计.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x),<span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="dv">5</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.45</span>),<span class="at">ylab=</span><span class="st">&quot;Student&#39;s t Density&quot;</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>,<span class="at">lty=</span><span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb1-2"><a href="推论统计.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">0</span>,<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="st">&quot;black&quot;</span>)</span>
+<span id="cb1-3"><a href="推论统计.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x,<span class="dv">1</span>),<span class="at">col=</span><span class="st">&quot;green&quot;</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="推论统计.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x,<span class="dv">2</span>),<span class="at">col=</span><span class="st">&quot;brown&quot;</span>,<span class="at">lty=</span><span class="dv">3</span>,<span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href="推论统计.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x,<span class="dv">5</span>),<span class="at">col=</span><span class="st">&quot;blue&quot;</span>,<span class="at">lty=</span><span class="dv">4</span>,<span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-6"><a href="推论统计.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x,<span class="dv">20</span>),<span class="at">col=</span><span class="st">&quot;dark green&quot;</span>,<span class="at">lty=</span><span class="dv">5</span>,<span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-7"><a href="推论统计.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="dv">2</span>,<span class="fl">0.38</span>,<span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>,<span class="st">&quot;df=1&quot;</span>,<span class="st">&quot;df=2&quot;</span>,<span class="st">&quot;df=5&quot;</span>,<span class="st">&quot;df=20&quot;</span>),</span>
+<span id="cb1-8"><a href="推论统计.html#cb1-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;brown&quot;</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;dark green&quot;</span>),<span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<p><img src="R语言与医学统计学_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+</div>
+<div id="概率累积分布函数pt" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> 概率累积分布函数pt()</h3>
+<p>同所有连续数值型分布一样，统计应用中最关心的是分布曲线下的尾部面积（即概率
+P
+或α）与横轴间的关系。 R中即为pt()，它给出一个正态分布中小于一个给定数字的累计概率(即指定定点的左边范围的曲线面积)。 一侧尾部面积称为单侧概率或单尾概率(one-tailed probability， tα,v)，两侧尾部的面积之和称为双侧概率或双尾概率 （two-tailes probability，
+tα/2,v）。</p>
+<p>单侧的p值计算</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="推论统计.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t-stat=1.9, df=5</span></span>
+<span id="cb2-2"><a href="推论统计.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 单侧 p值</span></span>
+<span id="cb2-3"><a href="推论统计.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># P(t =&gt; 1.9)</span></span>
+<span id="cb2-4"><a href="推论统计.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q=</span><span class="fl">1.9</span>, <span class="at">df=</span><span class="dv">5</span>, <span class="at">lower.tail =</span> F)</span></code></pre></div>
+<pre><code>## [1] 0.05793165</code></pre>
+<p>双侧的p值计算</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="推论统计.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 双侧 p-value</span></span>
+<span id="cb4-2"><a href="推论统计.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 两边对称单侧相加</span></span>
+<span id="cb4-3"><a href="推论统计.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q=</span><span class="fl">1.9</span>, <span class="at">df=</span><span class="dv">5</span>, <span class="at">lower.tail =</span> F) <span class="sc">+</span> <span class="fu">pt</span>(<span class="at">q=</span><span class="sc">-</span><span class="fl">1.9</span>, <span class="at">df=</span><span class="dv">5</span>, <span class="at">lower.tail =</span> T)</span></code></pre></div>
+<pre><code>## [1] 0.1158633</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="推论统计.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 单侧p值*2，对称性</span></span>
+<span id="cb6-2"><a href="推论统计.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="at">q=</span><span class="fl">1.9</span>, <span class="at">df=</span><span class="dv">5</span>, <span class="at">lower.tail =</span> F)<span class="sc">*</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 0.1158633</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="推论统计.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x坐标序列向量</span></span>
+<span id="cb8-2"><a href="推论统计.html#cb8-2" aria-hidden="true" tabindex="-1"></a>x_pt <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span> <span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb8-3"><a href="推论统计.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 用pt()函数获取df=5的x累计密度值</span></span>
+<span id="cb8-4"><a href="推论统计.html#cb8-4" aria-hidden="true" tabindex="-1"></a>y_pt <span class="ot">&lt;-</span> <span class="fu">pt</span>(x_pt, <span class="at">df =</span> <span class="dv">5</span>)</span>
+<span id="cb8-5"><a href="推论统计.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting </span></span>
+<span id="cb8-6"><a href="推论统计.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y_pt, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">main =</span> <span class="st">&quot;t-distribution cumulative function example&quot;</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-4"></span>
+<img src="R语言与医学统计学_files/figure-html/unnamed-chunk-4-1.png" alt="t分布的pt()" width="672" />
+<p class="caption">
+图 3.1: t分布的pt()
+</p>
+</div>
+</div>
+<div id="求置信区间的qt" class="section level3" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> 求置信区间的qt()</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="推论统计.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find t for 95% confidence interval value of t with 2.5% in each tail</span></span>
+<span id="cb9-2"><a href="推论统计.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">5</span>, <span class="at">lower.tail =</span> T)</span></code></pre></div>
+<pre><code>## [1] -2.570582</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="推论统计.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">5</span>, <span class="at">lower.tail =</span> T)</span></code></pre></div>
+<pre><code>## [1] 2.570582</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="推论统计.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specifyin the x-values</span></span>
+<span id="cb13-2"><a href="推论统计.html#cb13-2" aria-hidden="true" tabindex="-1"></a>x_qt <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb13-3"><a href="推论统计.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Applying the qt() function</span></span>
+<span id="cb13-4"><a href="推论统计.html#cb13-4" aria-hidden="true" tabindex="-1"></a>y_qt <span class="ot">&lt;-</span> <span class="fu">qt</span>(x_qt, <span class="at">df =</span> <span class="dv">5</span>)</span>
+<span id="cb13-5"><a href="推论统计.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting</span></span>
+<span id="cb13-6"><a href="推论统计.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y_qt, <span class="at">main =</span> <span class="st">&quot;t quantile function example&quot;</span>, <span class="at">las =</span> <span class="dv">1</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="R语言与医学统计学_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="指定t分布函数rt" class="section level3" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> 指定t分布函数rt()</h3>
+<p>rt()函数用于生成符合指定观测数目和自由度的t分布的随机数，默认是。</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="推论统计.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">61</span>)</span>
+<span id="cb14-2"><a href="推论统计.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting sample size</span></span>
+<span id="cb14-3"><a href="推论统计.html#cb14-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb14-4"><a href="推论统计.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using rt() to drawing N log normally distributed values</span></span>
+<span id="cb14-5"><a href="推论统计.html#cb14-5" aria-hidden="true" tabindex="-1"></a>y_rt <span class="ot">&lt;-</span> <span class="fu">rt</span>(n, <span class="at">df =</span> <span class="dv">5</span>)</span>
+<span id="cb14-6"><a href="推论统计.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting a histogram of y_rt</span></span>
+<span id="cb14-7"><a href="推论统计.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(y_rt, <span class="at">breaks =</span> <span class="dv">100</span>, <span class="at">main =</span> <span class="st">&quot;Randomly drawn t density&quot;</span>, <span class="at">freq=</span><span class="cn">FALSE</span>,</span>
+<span id="cb14-8"><a href="推论统计.html#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">col=</span><span class="st">&quot;#A8D6FF&quot;</span>,<span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="dv">10</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.4</span>))</span>
+<span id="cb14-9"><a href="推论统计.html#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(y_rt), <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-7"></span>
+<img src="R语言与医学统计学_files/figure-html/unnamed-chunk-7-1.png" alt="t分布函数的rt()" width="672" />
+<p class="caption">
+图 3.2: t分布函数的rt()
+</p>
+</div>
+</div>
+<div id="参数估计" class="section level3" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> 参数估计</h3>
+<p>参数估计是指用样本参数(统计量)推断总体参数，有点值估计(Point estimation)和区间估计(Interval estimation)两种。</p>
+<p>点值估计就是用相应样本统计量简单直接的作为总体参数的估计值，如用
+¯
+X
+估计
+μ
+，用
+S
+估计
+σ
+。 案例 某开发团队对开发App进行了改版迭代，现在有以下两个版本 + 版本1: 首页为一屏课程列表 + 版本2：首页为信息流 如果我们想区分两个版本，哪个版本用户更喜欢，转化率会更高。我们就需要对总体（全部用户）进行评估， 但是并不是全部存量用户都会访问App，并且每天还会新增很多用户，所以我们无法对总体（全部用户）进行评估， 我们只能从总体的用户中随机抽取样本（访问App）的用户进行分析，用样本数据表现情况来充当总体数据表现情况， 以此来评估哪个版本转化率更高。</p>
+<p>区间估计是按预先给定概率(1−α)，通过特定的分布函数来计算确定的未知总体参数的范围。该范围称为参数的可信区间或</p>
+<p>置信区间(Confidence bound/Confidence interval，CI)，预先设定的概率
+(1−α)
+称为可信度或置信度(Confidence level), 通常取值95%或99%，如果特殊说明，一般是双侧95%。可信区间是两个字确定的范围，其中较小的值称为可信下限(Lower limit，L)， 较大值称为可行上限(Upper limit，U)，表示为开区间(L，U)。</p>
+</div>
+<div id="假设检验" class="section level3" number="3.2.6">
+<h3><span class="header-section-number">3.2.6</span> 假设检验</h3>
+<p>从总体中随机抽样，由样本信息推断总体特征，除前面所讲的参数估计方法外，在实际应用中还会遇到这样的问题：某一样本均数是 否来自于某已知数的总体?两个不同样本均数是否来自均数不相等的总体等要回答这类问题,除可用前面参数估计的方法外， 更多的是用统计推断的另一方面——假设检验 (Hypothesis test)来解决，比如下面两个案例：</p>
+<p>案例3-5 某医生测量了36名从事铅作业男性工人的血红蛋白含量,算得其均数为130.83 g/L，标准差为25.74 g/L。问： 从事铅作业男性工人的血红蛋白含量均数(μ)是否不等于正常成年男性的均数 140 g/L ( μ0)?针对问题一，其目的是判断是否 μ≠μ0 ，以给出的条件看 X与已知总体均数 μ0 不相等， 造成两者不等的原因有两种情况：</p>
+<p>①从事前作业的样品血红含量确实与正常样品不一样，即非同一总体( μ≠
+μ0);</p>
+<p>②因为抽样误差导致的两者不相等，两者实际为同一总体( μ＝
+μ0 )。</p>
+<p>要判断第一种情况很困难，但可以利用反正思想从第②种出发，间接判断是否
+μ≠μ0 ：假设 μ＝μ0 ，判断由于抽样误 差造成不相等的可能行有多大？</p>
+<p>如果 <span class="math inline">\(\overline x\)</span> 与 μ0 接近，其差别可用抽样误差解释，即可认为 <span class="math inline">\(\overline x\)</span>来自 μ0 总体。反之，相差很大， 则难以说明
+<span class="math inline">\(\overline x\)</span> 来自 μ0 总体。那么， <span class="math inline">\(\overline x\)</span> 与 μ0 相差多大算是抽样误差造成的呢？若假设(
+μ＝μ0 )成立， 且样本总体符合正态分布(本案例未进行进一步判断，针对实际数据情况，做假设检验前应该情况进行分布判断或转换处理，选择合适的检验方法)， 则可以用t分布( t=<span class="math inline">\(\overline x\)</span>−μS/<span class="math inline">\(\sqrt {n}\)</span>)或正态分布
+( u=<span class="math inline">\(\overline x\)</span>−μσ/<span class="math inline">\(\sqrt {n}\)</span>) 来计算t值或者u值。然后根据t值或u值求得P值(P-value)来判断。如果 <span class="math inline">\(\overline x\)</span> 与 μ0 相差很大，那么t或者u值就很大， 对应P值就小；当P值小于或等于预先规定的概率值α(如0.05)时，则为小概率事件，这有理由怀疑原假设(μ＝μ0)可能不成立，认为其对立面(μ≠μ0)成立，该结论的正确性冒着5%的错误风险。</p>
+<div id="假设检验的步骤" class="section level4" number="3.2.6.1">
+<h4><span class="header-section-number">3.2.6.1</span> 假设检验的步骤</h4>
+<ol style="list-style-type: decimal">
+<li>建立检验假设，确定检验水准</li>
+</ol>
+<p>有两种假设，即
+H
+0
+和
+H
+1
+：</p>
+<ol style="list-style-type: decimal">
+<li><p>μ
+＝
+μ
+0
+，即检验假设(Hypothsis under test)，称为无效假设，也叫做零假设，原假设(Null hypothsis)， 用
+H
+0
+表示，原假设的设置一般为：等于=、大于等于&gt;=、小于等于&lt;=。</p></li>
+<li><p>μ
+≠
+μ
+0
+，即备择假设(Alternative test)，也称为对立假设，用
+H
+1
+表示，备择假设的设置一般为：不等于、大于&gt;、小于&lt;。</p></li>
+</ol>
+<p>对检验假设，需要注意以下几点</p>
+<p>①. 检验假设针对的是总体，而不是样本；</p>
+<p>②.<br />
+H
+0
+和
+H
+1
+是相互联系，对你的假设，后面的统计推断的结论是根据
+H
+0
+和
+H
+1
+作出的，二者缺一不可；</p>
+<p>③.<br />
+H
+0
+为无效假设，其假定通常是：某两个(或多个)总体的参数相等，或两个总体参数之差为0，或某资料服从某一特定分布 (如正态分布，Poisson分布等)，或
+⋯
+⋯
+无效等；</p>
+<p>④.<br />
+H
+1
+的内容直接反映呢检验的单双侧。比如案例3-5中，如果
+μ
+≠
+μ
+0
+，则此检验为双侧检验(Two-sided test);若
+H
+1
+为<br />
+μ
+＞
+μ
+0
+或
+μ
+小
+于
+μ
+0
+，则检验为单侧检验(One-sided test)，不仅考虑差异，而且考虑差异的方向。单双侧检验的确定， 首先需要根据专业知识，其次是根据需要解决的问题来确定。</p>
+<p>检验水准α，也称显著性水准(Singnificance level)，它属于Ⅰ型错误的范畴，是预先规定的概率值，它确定了 小概率事件的标准。实际中常取
+α
+=
+0.05
+，可根据不同研究目的给予不同设置。
+第I类错误和第Ⅱ类错误</p>
+<p>为什么统计者想要拒绝的假设放在原假设呢？因为原假设备被拒绝如果出错的话，只能犯第I类错误，而犯第I类错误的概率已经 被规定的显著性水平所控制。</p>
+<p>我们通过样本数据来判断总体参数的假设是否成立，但样本是随机抽取的，因而有可能出现小概率的错误。这种小概率错误有两种， 一种是第I类错误(也叫弃真错误，Type Ⅰ error)，另一种是第Ⅱ类错误(也叫取伪错误，Type Ⅱ error)。</p>
+<p>第I类错误或α错误：它是指
+H
+0
+实际上是真的，但通过假设检验后，拒绝了原假设。这是错误的， 我们拒绝了真实的原假设，所以叫弃真错误，这个错误的概率我们记为α，也就是检验水准。在假设检验之前我们会规定这个概率的大小，从而控制检验功效。</p>
+<p>第II类错误或β错误：它是指
+H
+0
+实际上假的，但通过假设检验显示，不拒绝原假设。这也是错误的，我们接受的原假设实际上是假的，所以叫取伪错误，这个错误的概率我们记为β。</p>
+<p>1-β称为检验效能(Power of test)，过去称把握度。其意义为当两总体确有差异，按规定检验水准α所能发现该差异的能力。 和B一样，1-β只取单尾。如1-β = 0.90，意味着若两总体确有差别,则理论上平均每100 次检验中，有90 次能够得出差异 有统计学意义的结论。从图中可看出，α愈小，B愈大; 反之α愈大，β愈小。若要同时减小型错误a以及1型错误B，唯一的方法 就是增加样本含量n。若重点是减少第I类错误α(如一般的假设检验)，一般取 a=0.05。 若重点是减少第II类错误(如方差齐性检验，正态性检验或想用一种方法代替另一种方法的检验等)， 一般取 a = 0.10 或0.20，甚至更高。注意:拒绝
+H
+0
+，只可能犯第I类错误，不可能第II类错误。 不拒绝
+H
+0
+，只可能犯第II类错误，不可能犯第I类错误。</p>
+<p>因此，原假设一般都是想要拒绝的假设，如果原假设备被错误拒绝的话，只能犯弃真错误，而犯弃真错误的概率可以用 检验水准
+α
+控制，对统计者来说更容易控制，将错误影响降到最小。
+2. 计算检验统计量</p>
+<p>应该根据变量或资料的类型，设计方案，统计推断的目的，方法的适用条件等选择检验统计量。如成组设计两样本均数的比较可根据 资料特点选用检验统计量
+t
+，
+t
+′
+，
+u
+等；而成组设计两样本翻查的比较一般先用检验统计量
+F
+。计算这些统计量都是在
+H
+0
+(
+μ
+＝
+μ
+0
+)， 即假定是比较的数据来自同一总体的成立前提下算出来的。</p>
+<p>有的检验方法无需计算检验统计量，如四个表资料。
+3. 确定
+P
+值，做出推断结论</p>
+<p>P
+的含义是指从
+H
+0
+规定的总体中随机抽样，抽得等于及大于或(和)等于及小于现有样本获得的统计量(如
+t
+、
+u
+等)值的概率。 根据获得的时候概率
+P
+值，与之相规定的检验水准
+α
+进行比较，看其是否为小概率事件二得出结论。 一般来说，推断结论应包含统计结论和专业结论两部分，前者只说明差异是否有统计学意义(Statistical Significance)， 后者这是结合专业内容给出的结论解释：</p>
+<p>P
+≤
+α
+，则发生小概率事件，拒绝
+H
+0
+，接受
+H
+1
+，差异具有统计学意义。</p>
+<p>P
+&gt;
+α
+，则不拒绝
+H
+0
+，差异无统计学意义。
+P
+&gt;
+α
+也成为“无显著性”(Non-Significance,NS)，即阴性结果。
+注意的是:</p>
+<p>① 不拒绝
+H
+0
+不等于接受
+H
+0
+，虽然在逻辑上否定的否定为肯定，但在统计上是按照检验水准
+α
+不拒绝
+H
+0
+，若接受
+H
+0
+则因为范Ⅱ型错误的概率
+β
+未知而证据不足，以决策的观点，之客认为展示有条件“接受”，或“阴性待诊”。</p>
+<p>② 作结论是，对
+H
+0
+只能说拒绝(Reject)或者不拒绝(Not reject)
+H
+0
+。而对
+H
+1
+只能说接受
+H
+1
+，其他说法俱不妥当。</p>
+<p>③ 差异有无统计学意义，是对样本统计量和总体参数(如
+¯
+X
+和
+μ
+0
+)，或两个，多个样本统计量(如
+¯
+X
+1
+和
+¯
+X
+2
+)而言， 对推断两个总体参数(如
+μ
+1
+和
+μ
+0
+，或
+μ
+1
+和
+μ
+2
+)而言，只能说是否相等。</p>
+<p>拒绝域 拒绝域是由显著性水平围成的区域。拒绝域的功能主要用来判断假设检验是否拒绝原假设的。如果样本观测计算出来的 检验统计量(如t，u值)的具体数值落在拒绝域内，就拒绝原假设，否则不拒绝原假设。给定检验水准
+α
+后，查表就可以得到具体 临界值，将检验统计量与临界值进行比较，判断是否拒绝原假设。</p>
+</div>
+</div>
+</div>
+<div id="t-检验的分类及应用" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> t 检验的分类及应用</h2>
+<p>连续性数值变量资料在假设检验，最简单，常用的方法就是t检验(t-test/Student’s t-test)，实际应用时， 理清各种检验方法的用途和使用条件及注意事项。 参数检验用于在假设检验中进行具有统计意义的检验。</p>
+<div id="t检验与z检验" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> t检验与Z检验</h3>
+<p>当
+σ
+未知且样本量n较小时(如n&lt;60)，理论上要求t检验的样本随机抽取自正态分布的总体；如果是独立两小样本量的均数比较，还要求 多对应的两总体的方差相等(
+σ
+2
+1
+=
+σ
+2
+2
+)。即方差齐性。在实际应用中，路与上述条件有略偏离，对结果影响不大。当样本含量n 较大时，t值近似u值，即可适用正态分布的u检验(或Z检验)。</p>
+<p>如果两独立样本的方差不相等(方差不齐)，可采用数据变换(如两样本几何均数的t检验，就是将原始数据对数转换后进行t检验)处理， 或采用近似t检验(Separate variance estimation t-test)，即t‘检验或秩转换的非参数检验，比如常用的Cochran&amp;Cox法和Satterthwaite法两种，还有Welch法。</p>
+<p>t检验基本上有三种类型：</p>
+<p>单样本t检验(One sample/gourp t-test)</p>
+<p>配对样本t检验(Paired/matched t-test)</p>
+<p>两种独立样本t检验(Two sample/gourp t-test)</p>
+<p>R的stats包提供了t.test()，可以用于各种t检验，如果只提供一组数据，则进行单样本t检验，如果提供两组数据， 则进行两样本t检验，主要的相关的参数是：</p>
+<p>paired参数，TRUE则进行配对t检验，FALSE 则进行两独立样本t检验。
+var.equal参数，对于两独立样本t检验，还要注意方差是否齐性，TRUE则进行经典方法，FALSE则采用近似t检验， 将数据取对数处理后进行t检验，t.test()中是采用Welch t检验。
+alternative参数，用来指定检验方式，默认是双侧检验(“two.sided”)，还可以是左侧检验(“less”)和右侧检验(“greater”)。
+t.test()为什么用Welch t检验</p>
+<p>配对数据我们可以把配对信息扔了，放在一起做两独立样本t检验；当然还是成对T检验好，比如病人在使用某药 物前后的指标，如果不用配对信息，则病人之间的 variance 也混进去，方差估计会大一些，使得t检验的检验效能减弱。</p>
+<p>方差齐性样本数据，理论上我们也可以把它当做不齐的样本用t’方法处理，但是用经典方法可以检验出更小的差别。 所以如果不确定方差齐性与否的情况下(最好时进行方差齐性检验)，就用Welch t检验。因为与经典方法相比， Welch t检验的自由度会比方差齐性的经典方法要小，根据t分布特征，自由度越小，中心越平， 而尾巴越长，要观察到同样一个t值，自由度越小所计算出来的p值会越大，换句话说，自由度越小，t检验就越保守。</p>
+<p>在方差非齐性的处理方法中，Welch 法检验又可以给出相对较高的自由度，因此t.tes()默认使用Welch t 检验的原因估计就是因为它较为保守。</p>
+</div>
+<div id="单样本t检验" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> 单样本t检验</h3>
+<p>单样本t检验(One sample/gourp t-test)即已知样本均数 <span class="math inline">\(\overline x\)</span>
+(代表未知总体均数
+μ
+)与已知总体
+μ
+0
+的比较。比如 使用《医学统计学》中的 案例3-5 的数据在R中进行单样本t检验测试</p>
+<p>由于缺乏原始数据，使用上一章节RBC数据举例，与假设总体均数为4</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="推论统计.html#cb15-1" aria-hidden="true" tabindex="-1"></a>RBC <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.96</span>,<span class="fl">4.23</span>,<span class="fl">4.42</span>,<span class="fl">3.59</span>,<span class="fl">5.12</span>,<span class="fl">4.02</span>,<span class="fl">4.32</span>,<span class="fl">3.72</span>,<span class="fl">4.76</span>,<span class="fl">4.16</span>,<span class="fl">4.61</span>,<span class="fl">4.26</span>,</span>
+<span id="cb15-2"><a href="推论统计.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fl">3.77</span>,<span class="fl">4.20</span>,<span class="fl">4.36</span>,<span class="fl">3.07</span>,<span class="fl">4.89</span>,<span class="fl">3.97</span>,<span class="fl">4.28</span>,<span class="fl">3.64</span>,<span class="fl">4.66</span>,<span class="fl">4.04</span>,<span class="fl">4.55</span>,<span class="fl">4.25</span>,</span>
+<span id="cb15-3"><a href="推论统计.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fl">4.63</span>,<span class="fl">3.91</span>,<span class="fl">4.41</span>,<span class="fl">3.52</span>,<span class="fl">5.03</span>,<span class="fl">4.01</span>,<span class="fl">4.30</span>,<span class="fl">4.19</span>,<span class="fl">4.75</span>,<span class="fl">4.14</span>,<span class="fl">4.57</span>,<span class="fl">4.26</span>,</span>
+<span id="cb15-4"><a href="推论统计.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fl">4.56</span>,<span class="fl">3.79</span>,<span class="fl">3.89</span>,<span class="fl">4.21</span>,<span class="fl">4.95</span>,<span class="fl">3.98</span>,<span class="fl">4.29</span>,<span class="fl">3.67</span>,<span class="fl">4.69</span>,<span class="fl">4.12</span>,<span class="fl">4.56</span>,<span class="fl">4.26</span>,</span>
+<span id="cb15-5"><a href="推论统计.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fl">4.66</span>,<span class="fl">4.28</span>,<span class="fl">3.83</span>,<span class="fl">4.20</span>,<span class="fl">5.24</span>,<span class="fl">4.02</span>,<span class="fl">4.33</span>,<span class="fl">3.76</span>,<span class="fl">4.81</span>,<span class="fl">4.17</span>,<span class="fl">3.96</span>,<span class="fl">3.27</span>,</span>
+<span id="cb15-6"><a href="推论统计.html#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fl">4.61</span>,<span class="fl">4.26</span>,<span class="fl">3.96</span>,<span class="fl">4.23</span>,<span class="fl">3.76</span>,<span class="fl">4.01</span>,<span class="fl">4.29</span>,<span class="fl">3.67</span>,<span class="fl">3.39</span>,<span class="fl">4.12</span>,<span class="fl">4.27</span>,<span class="fl">3.61</span>,</span>
+<span id="cb15-7"><a href="推论统计.html#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fl">4.98</span>,<span class="fl">4.24</span>,<span class="fl">3.83</span>,<span class="fl">4.20</span>,<span class="fl">3.71</span>,<span class="fl">4.03</span>,<span class="fl">4.34</span>,<span class="fl">4.69</span>,<span class="fl">3.62</span>,<span class="fl">4.18</span>,<span class="fl">4.26</span>,<span class="fl">4.36</span>,</span>
+<span id="cb15-8"><a href="推论统计.html#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fl">5.28</span>,<span class="fl">4.21</span>,<span class="fl">4.42</span>,<span class="fl">4.36</span>,<span class="fl">3.66</span>,<span class="fl">4.02</span>,<span class="fl">4.31</span>,<span class="fl">4.83</span>,<span class="fl">3.59</span>,<span class="fl">3.97</span>,<span class="fl">3.96</span>,<span class="fl">4.49</span>,</span>
+<span id="cb15-9"><a href="推论统计.html#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fl">5.11</span>,<span class="fl">4.20</span>,<span class="fl">4.36</span>,<span class="fl">4.54</span>,<span class="fl">3.72</span>,<span class="fl">3.97</span>,<span class="fl">4.28</span>,<span class="fl">4.76</span>,<span class="fl">3.21</span>,<span class="fl">4.04</span>,<span class="fl">4.56</span>,<span class="fl">4.25</span>,</span>
+<span id="cb15-10"><a href="推论统计.html#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fl">4.92</span>,<span class="fl">4.23</span>,<span class="fl">4.47</span>,<span class="fl">3.60</span>,<span class="fl">5.23</span>,<span class="fl">4.02</span>,<span class="fl">4.32</span>,<span class="fl">4.68</span>,<span class="fl">4.76</span>,<span class="fl">3.69</span>,<span class="fl">4.61</span>,<span class="fl">4.26</span>,</span>
+<span id="cb15-11"><a href="推论统计.html#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fl">3.89</span>,<span class="fl">4.21</span>,<span class="fl">4.36</span>,<span class="fl">3.42</span>,<span class="fl">5.01</span>,<span class="fl">4.01</span>,<span class="fl">4.29</span>,<span class="fl">3.68</span>,<span class="fl">4.71</span>,<span class="fl">4.13</span>,<span class="fl">4.57</span>,<span class="fl">4.26</span>,</span>
+<span id="cb15-12"><a href="推论统计.html#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fl">4.03</span>,<span class="fl">5.46</span>,<span class="fl">4.16</span>,<span class="fl">3.64</span>,<span class="fl">4.16</span>,<span class="fl">3.76</span>)</span>
+<span id="cb15-13"><a href="推论统计.html#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(RBC,<span class="at">mu=</span><span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  RBC
+## t = 5.9834, df = 137, p-value = 1.806e-08
+## alternative hypothesis: true mean is not equal to 4
+## 95 percent confidence interval:
+##  4.151999 4.302059
+## sample estimates:
+## mean of x 
+##  4.227029</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="推论统计.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#左侧检验</span></span>
+<span id="cb17-2"><a href="推论统计.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(RBC, <span class="at">mu=</span><span class="dv">4</span>, <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  RBC
+## t = 5.9834, df = 137, p-value = 1
+## alternative hypothesis: true mean is less than 4
+## 95 percent confidence interval:
+##      -Inf 4.289865
+## sample estimates:
+## mean of x 
+##  4.227029</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="推论统计.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#右侧检验</span></span>
+<span id="cb19-2"><a href="推论统计.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(RBC, <span class="at">mu=</span><span class="dv">4</span>, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  RBC
+## t = 5.9834, df = 137, p-value = 9.031e-09
+## alternative hypothesis: true mean is greater than 4
+## 95 percent confidence interval:
+##  4.164193      Inf
+## sample estimates:
+## mean of x 
+##  4.227029</code></pre>
+</div>
+<div id="配对样本t检验" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> 配对样本t检验</h3>
+<p>简称配对t检验(Paired/matched t-test)，也称成对t检验(注意区别于成组t检验)，适用于配对设计的计量资料。配对设计是将受试对象按照某些重要特征特征配成对子，再见没对中的 两个受试对象随机分配到两处理组。常见的配对设计主要有：</p>
+<p>两通志受试对象配成对子，分别接受两种不同的处理；</p>
+<p>同一受试对象分别接受两种不同处理；</p>
+<p>同一受试对象接受一种处理前后。</p>
+<p>使用《医学统计学》中的 案例3-6 的数据在R中进行配对样本t检验测试，案例3-6属于第2种配对设计情况。
+案例3-6: 为比较两种方法对乳酸饮料中脂肪含量测定的结果是否相同，随机抽取了10份乳酸饮料制品，分别用方法1和方法2测定其乳酸含量，问两种测量方法结果是否相同。</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="推论统计.html#cb21-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.840</span>,<span class="fl">0.591</span>,<span class="fl">0.674</span>,<span class="fl">0.632</span>,<span class="fl">0.687</span>,<span class="fl">0.978</span>,<span class="fl">0.750</span>,<span class="fl">0.730</span>,<span class="fl">1.200</span>,<span class="fl">0.870</span>)</span>
+<span id="cb21-2"><a href="推论统计.html#cb21-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.580</span>,<span class="fl">0.509</span>,<span class="fl">0.500</span>,<span class="fl">0.316</span>,<span class="fl">0.337</span>,<span class="fl">0.517</span>,<span class="fl">0.454</span>,<span class="fl">0.512</span>,<span class="fl">0.997</span>,<span class="fl">0.506</span>)</span>
+<span id="cb21-3"><a href="推论统计.html#cb21-3" aria-hidden="true" tabindex="-1"></a>bianhao <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb21-4"><a href="推论统计.html#cb21-4" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">cbind</span>(bianhao,m1,m2)</span></code></pre></div>
+<pre><code>## Warning in cbind(bianhao, m1, m2): number of rows of result is not a multiple of
+## vector length (arg 2)</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="推论统计.html#cb23-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb23-2"><a href="推论统计.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(m,<span class="dv">10</span>), <span class="at">caption =</span> <span class="st">&#39;方法1和方法2测定某饮料乳酸含量&#39;</span>,</span>
+<span id="cb23-3"><a href="推论统计.html#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>)<span class="co">#用表格方式查看矩阵</span></span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-9">表 3.1: </span>方法1和方法2测定某饮料乳酸含量</caption>
+<thead>
+<tr class="header">
+<th align="right">bianhao</th>
+<th align="right">m1</th>
+<th align="right">m2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0.840</td>
+<td align="right">0.580</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.591</td>
+<td align="right">0.509</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.674</td>
+<td align="right">0.500</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.632</td>
+<td align="right">0.316</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.687</td>
+<td align="right">0.337</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.978</td>
+<td align="right">0.517</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.750</td>
+<td align="right">0.454</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.730</td>
+<td align="right">0.512</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">1.200</td>
+<td align="right">0.997</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">0.870</td>
+<td align="right">0.506</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="推论统计.html#cb24-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(m)</span>
+<span id="cb24-2"><a href="推论统计.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(m<span class="sc">$</span>m1,m<span class="sc">$</span>m2,<span class="at">paired =</span> T)</span></code></pre></div>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  m$m1 and m$m2
+## t = 8.7205, df = 10, p-value = 5.49e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.2019610 0.3405845
+## sample estimates:
+## mean of the differences 
+##               0.2712727</code></pre>
+<p>计算显示
+P
+=
+5.4
+e
+−
+05
+&lt;
+α
+=
+0.05
+，可以认为一次抽样发生了小概率事件，因此拒绝原假设
+H
+0
+， 接受
+H
+1
+，差异有统计意义；结合案例数据意义，可认为两种方法对脂肪含量的测定结果不同， 而且第一种方法的鉴定结果数值较高。</p>
+<p>可以通过绘制拒绝域和t值落点，更直观的发现t值落在左侧和右侧的拒绝域内的</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="推论统计.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#l使用scales包中alpha函数改变颜色透明度</span></span>
+<span id="cb26-2"><a href="推论统计.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;scales&quot;</span>)</span>
+<span id="cb26-3"><a href="推论统计.html#cb26-3" aria-hidden="true" tabindex="-1"></a>t.value<span class="ot">&lt;-</span><span class="fl">8.7205</span></span>
+<span id="cb26-4"><a href="推论统计.html#cb26-4" aria-hidden="true" tabindex="-1"></a>df<span class="ot">=</span><span class="dv">10</span></span>
+<span id="cb26-5"><a href="推论统计.html#cb26-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">9</span>,<span class="dv">9</span>,<span class="at">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb26-6"><a href="推论统计.html#cb26-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dt</span>(x,<span class="at">df=</span>df)</span>
+<span id="cb26-7"><a href="推论统计.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#右侧p值0.95对应的t值</span></span>
+<span id="cb26-8"><a href="推论统计.html#cb26-8" aria-hidden="true" tabindex="-1"></a>right <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.95</span>,<span class="at">df=</span>df)</span>
+<span id="cb26-9"><a href="推论统计.html#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#左p值0.05对应的t值</span></span>
+<span id="cb26-10"><a href="推论统计.html#cb26-10" aria-hidden="true" tabindex="-1"></a>left <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.05</span>,<span class="at">df=</span>df,<span class="at">lower.tail=</span>T)</span>
+<span id="cb26-11"><a href="推论统计.html#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co">#绘制密度曲线</span></span>
+<span id="cb26-12"><a href="推论统计.html#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y,<span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;probabilityy&quot;</span>,</span>
+<span id="cb26-13"><a href="推论统计.html#cb26-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&#39;Assumed Distribution of &#39;</span>,<span class="fu">bar</span>(x))),</span>
+<span id="cb26-14"><a href="推论统计.html#cb26-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes=</span><span class="cn">FALSE</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">max</span>(y)<span class="sc">*</span><span class="fl">1.1</span>),<span class="at">xlim=</span><span class="fu">c</span>(<span class="fu">min</span>(x),<span class="fu">max</span>(x)),</span>
+<span id="cb26-15"><a href="推论统计.html#cb26-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">frame.plot=</span><span class="cn">FALSE</span>)</span>
+<span id="cb26-16"><a href="推论统计.html#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="co">#添加坐标轴</span></span>
+<span id="cb26-17"><a href="推论统计.html#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">9</span>,left,right,<span class="dv">0</span>,<span class="dv">9</span>),</span>
+<span id="cb26-18"><a href="推论统计.html#cb26-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">pos =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb26-19"><a href="推论统计.html#cb26-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels=</span><span class="fu">c</span>(<span class="fu">expression</span>(<span class="st">&#39; &#39;</span>),<span class="fu">expression</span>(<span class="fu">bar</span>(x)[cil]),</span>
+<span id="cb26-20"><a href="推论统计.html#cb26-20" aria-hidden="true" tabindex="-1"></a>     <span class="fu">expression</span>(<span class="fu">bar</span>(x)[cir]),<span class="fu">expression</span>(mu[<span class="dv">0</span>]),<span class="fu">expression</span>(<span class="st">&#39;&#39;</span>)))</span>
+<span id="cb26-21"><a href="推论统计.html#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>,<span class="at">pos =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">9</span>,<span class="dv">0</span>))</span>
+<span id="cb26-22"><a href="推论统计.html#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="co">#标记左侧和右侧的拒绝域</span></span>
+<span id="cb26-23"><a href="推论统计.html#cb26-23" aria-hidden="true" tabindex="-1"></a>xRiReject <span class="ot">&lt;-</span> <span class="fu">seq</span>(right,<span class="dv">9</span>,<span class="at">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb26-24"><a href="推论统计.html#cb26-24" aria-hidden="true" tabindex="-1"></a>yRiReject <span class="ot">&lt;-</span> <span class="fu">dt</span>(xRiReject,<span class="at">df=</span>df,)</span>
+<span id="cb26-25"><a href="推论统计.html#cb26-25" aria-hidden="true" tabindex="-1"></a>xLeReject <span class="ot">&lt;-</span> <span class="fu">seq</span>(left,<span class="sc">-</span><span class="dv">9</span>,<span class="at">by=</span><span class="sc">-</span><span class="fl">0.01</span>)</span>
+<span id="cb26-26"><a href="推论统计.html#cb26-26" aria-hidden="true" tabindex="-1"></a>yLeReject <span class="ot">&lt;-</span> <span class="fu">dt</span>(xLeReject,<span class="at">df=</span>df)</span>
+<span id="cb26-27"><a href="推论统计.html#cb26-27" aria-hidden="true" tabindex="-1"></a><span class="co">#用poltgon()绘制拒绝域</span></span>
+<span id="cb26-28"><a href="推论统计.html#cb26-28" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(xRiReject,xRiReject[<span class="fu">length</span>(xRiReject)],xRiReject[<span class="dv">1</span>]),</span>
+<span id="cb26-29"><a href="推论统计.html#cb26-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(yRiReject,<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">&quot;red&quot;</span>,<span class="fl">0.4</span>),<span class="at">border=</span><span class="cn">NA</span>)</span>
+<span id="cb26-30"><a href="推论统计.html#cb26-30" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(xLeReject,xLeReject[<span class="fu">length</span>(xLeReject)],xLeReject[<span class="dv">1</span>]),</span>
+<span id="cb26-31"><a href="推论统计.html#cb26-31" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(yLeReject,<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">&quot;red&quot;</span>,<span class="fl">0.4</span>),<span class="at">border=</span><span class="cn">NA</span>)</span>
+<span id="cb26-32"><a href="推论统计.html#cb26-32" aria-hidden="true" tabindex="-1"></a><span class="co">#在坐标轴上添加t值标记</span></span>
+<span id="cb26-33"><a href="推论统计.html#cb26-33" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="fu">c</span>(t.value,<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(t.value)),</span>
+<span id="cb26-34"><a href="推论统计.html#cb26-34" aria-hidden="true" tabindex="-1"></a>     <span class="at">pos =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">lwd.ticks=</span><span class="dv">1</span>,</span>
+<span id="cb26-35"><a href="推论统计.html#cb26-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels=</span><span class="fu">c</span>( <span class="fu">round</span>(t.value,<span class="dv">2</span>),<span class="fu">round</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(t.value),<span class="dv">2</span>)))</span>
+<span id="cb26-36"><a href="推论统计.html#cb26-36" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(t.value),<span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(t.value), <span class="fl">0.4</span>, <span class="at">length =</span> <span class="dv">0</span>,<span class="at">lty =</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb26-37"><a href="推论统计.html#cb26-37" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(t.value,<span class="dv">0</span>, t.value, <span class="fl">0.4</span>, <span class="at">length =</span> <span class="dv">0</span>,<span class="at">lty =</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="R语言与医学统计学_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="两种独立样本t检验" class="section level3" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> 两种独立样本t检验</h3>
+<p>两种独立样本t检验又称为成组t检验((Two sample/gourp t-test)，适用于完全随机设计两样本均数比较， 通常是比较两样本所代表的总体的均数是否不同。两组完全随机设计是将受试对象完全随机分配到两个不同处理组。</p>
+<p>当两样本含量较小(
+n
+1
+≤
+60
+,
+或
+(
+和
+)
+n
+2
+≤
+60
+)，且各自的总体符合正态分布(正态分布检验)时，再根据两组 数据的方差是否一样(方差齐性，方差齐性检验)来采用不同t检验方法。</p>
+<div id="总体方差相等的t检验" class="section level4" number="3.3.4.1">
+<h4><span class="header-section-number">3.3.4.1</span> 总体方差相等的t检验</h4>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="推论统计.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&#39;reshape2&#39;)</span></span>
+<span id="cb27-2"><a href="推论统计.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb27-3"><a href="推论统计.html#cb27-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.840</span>,<span class="fl">0.591</span>,<span class="fl">0.674</span>,<span class="fl">0.632</span>,<span class="fl">0.687</span>,<span class="fl">0.978</span>,<span class="fl">0.750</span>,<span class="fl">0.730</span>,<span class="fl">1.200</span>,<span class="fl">0.870</span>)</span>
+<span id="cb27-4"><a href="推论统计.html#cb27-4" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.580</span>,<span class="fl">0.509</span>,<span class="fl">0.500</span>,<span class="fl">0.316</span>,<span class="fl">0.337</span>,<span class="fl">0.517</span>,<span class="fl">0.454</span>,<span class="fl">0.512</span>,<span class="fl">0.997</span>,<span class="fl">0.506</span>)</span>
+<span id="cb27-5"><a href="推论统计.html#cb27-5" aria-hidden="true" tabindex="-1"></a>bianhao <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb27-6"><a href="推论统计.html#cb27-6" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">cbind</span>(bianhao,m1,m2)</span></code></pre></div>
+<pre><code>## Warning in cbind(bianhao, m1, m2): number of rows of result is not a multiple of
+## vector length (arg 2)</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="推论统计.html#cb29-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(m)</span>
+<span id="cb29-2"><a href="推论统计.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="推论统计.html#cb29-3" aria-hidden="true" tabindex="-1"></a>mm <span class="ot">&lt;-</span> <span class="fu">melt</span>(m,<span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">&#39;bianhao&#39;</span>),<span class="at">variable.name =</span> <span class="st">&#39;方法&#39;</span>,<span class="at">value.name =</span> <span class="st">&#39;脂肪酸含量&#39;</span>)</span>
+<span id="cb29-4"><a href="推论统计.html#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="推论统计.html#cb29-5" aria-hidden="true" tabindex="-1"></a>mm <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mm)</span>
+<span id="cb29-6"><a href="推论统计.html#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(脂肪酸含量<span class="sc">~</span>方法,<span class="at">data=</span>mm)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  脂肪酸含量 by 方法
+## Bartlett&#39;s K-squared = 0.0010555, df = 1, p-value = 0.9741</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="推论统计.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(m<span class="sc">$</span>m1,m<span class="sc">$</span>m2,<span class="at">paired =</span> T)</span></code></pre></div>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  m$m1 and m$m2
+## t = 8.7205, df = 10, p-value = 5.49e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.2019610 0.3405845
+## sample estimates:
+## mean of the differences 
+##               0.2712727</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="推论统计.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(m1)</span></code></pre></div>
+<pre><code>## [1] 0.1843618</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="推论统计.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(m2)</span></code></pre></div>
+<pre><code>## [1] 0.1859814</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="推论统计.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#P=0.9,m1,m2方差齐</span></span>
+<span id="cb37-2"><a href="推论统计.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(m1,m2,<span class="at">var.equal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  m1 and m2
+## t = 3.2894, df = 18, p-value = 0.004076
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.09841834 0.44638166
+## sample estimates:
+## mean of x mean of y 
+##    0.7952    0.5228</code></pre>
+<div id="t检验" class="section level5" number="3.3.4.1.1">
+<h5><span class="header-section-number">3.3.4.1.1</span> t’检验</h5>
+<p>t’检验，用于总体方差不相等的t检验。当两独立小样本的均数比较，如果方差不相等(方差不齐)，可采用数据变换(如两样本几何均数的t检验， 就是将原始数据对数转换后进行t检验)处理，或采用近似t检验(Separate variance estimation t-test)，即t’检验或秩转换的非参数检验，比如常用的 Cochran&amp;Cox法 和 Satterthwaite法 两种， 还有t.teet()里面使用的Welch法。注意的是，我了解的资料显示，似乎R语言中还没有具体实现Cochran&amp;Cox法 和 Satterthwaite法的函数实现，需根据公式写代码实现，可以参考下面的代码。另外，Satterthwaite法和Welch法都是在 Cochran&amp;Cox法的检验统计量t’的基础上，进行的自由度矫正，然后得到矫正自由度后对应的t’值代替t值。</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="推论统计.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#假设m1,m2方差不齐</span></span>
+<span id="cb39-2"><a href="推论统计.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(m1,m2,<span class="at">var.equal=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  m1 and m2
+## t = 3.2894, df = 17.999, p-value = 0.004076
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.09841739 0.44638261
+## sample estimates:
+## mean of x mean of y 
+##    0.7952    0.5228</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="描述.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-chinese/edit/master/02-总体均数的估计与假设检验.Rmd",
+"text": "编辑"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["R语言与医学统计学.pdf", "R语言与医学统计学.epub"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
